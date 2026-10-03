@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var m=localStorage.getItem("brim-mode");if(m==="dark"||m==="light")document.documentElement.dataset.theme=m}catch(e){}</script>
+<title>Not found · Brim</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  @font-face { font-family: "Funnel Display"; src: url("/fonts/funnel-display-latin-wght-normal.woff2") format("woff2"); font-weight: 300 800; font-display: swap; }
+  @font-face { font-family: "Funnel Sans"; src: url("/fonts/funnel-sans-latin-wght-normal.woff2") format("woff2"); font-weight: 300 800; font-display: swap; }
+  :root { color-scheme: light; --bg: #F4F5FC; --bg2: #E8EAFB; --ink: #0D0F2E; --muted: #545A7C; --accent: #3A2BF0; --on-accent: #FFFFFF; }
+  :root[data-theme="dark"] { color-scheme: dark; --bg: #090A1F; --bg2: #16183A; --ink: #EDEFFF; --muted: #A0A5CC; --accent: #7E73FF; --on-accent: #090A1F; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --bg: #090A1F; --bg2: #16183A; --ink: #EDEFFF; --muted: #A0A5CC; --accent: #7E73FF; --on-accent: #090A1F; } }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--bg); color: var(--ink); font: 17px/1.5 "Funnel Sans", system-ui, sans-serif; text-align: center; padding: 24px; box-sizing: border-box; }
+  .glass { width: 56px; height: 72px; margin: 0 auto 28px; border-radius: 6px 6px 18px 18px; box-shadow: inset 0 0 0 4px var(--ink); background: linear-gradient(to top, var(--bg2) 0 18%, transparent 18%); }
+  h1 { font-family: "Funnel Display", system-ui, sans-serif; font-weight: 800; font-size: clamp(36px, 6vw, 56px); letter-spacing: -.045em; line-height: 1; margin: 0 0 12px; }
+  p { color: var(--muted); margin: 0 0 28px; }
+  a { display: inline-block; background: var(--accent); color: var(--on-accent); text-decoration: none; font-family: "Funnel Display", system-ui, sans-serif; font-weight: 700; padding: 12px 24px; border-radius: 999px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="glass" aria-hidden="true"></div>
+  <h1>Nothing in this glass.</h1>
+  <p>This page doesn't exist, or it moved.</p>
+  <a href="/">Back to brimfamily.fun</a>
+</main>
+</body>
+</html>

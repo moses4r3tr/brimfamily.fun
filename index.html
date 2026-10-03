@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var m=localStorage.getItem("brim-mode");if(m==="dark"||m==="light")document.documentElement.dataset.theme=m}catch(e){}</script>
+<title>Brim · tokens that pay every hour</title>
+<meta name="description" content="Launch a Solana token whose tax pays its holders every hour. Built on Raydium LaunchLab, with the pool's liquidity locked for good at graduation.">
+<meta property="og:title" content="Brim · tokens that pay every hour">
+<meta property="og:description" content="One tax, split between holders, the creator and the burn, paid out every hour. Built on Raydium LaunchLab.">
+<meta property="og:image" content="https://brimfamily.fun/logo.png">
+<meta property="og:url" content="https://brimfamily.fun/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#F4F5FC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#090A1F" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  @font-face { font-family: "Funnel Display"; src: url("fonts/funnel-display-latin-wght-normal.woff2") format("woff2"); font-weight: 300 800; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Funnel Sans"; src: url("fonts/funnel-sans-latin-wght-normal.woff2") format("woff2"); font-weight: 300 800; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Geist Mono"; src: url("fonts/geist-mono-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+
+  :root { color-scheme: light; --bg: #F4F5FC; --bg2: #E8EAFB; --card: #FFFFFF; --ink: #0D0F2E; --muted: #545A7C; --line: #D9DCF2; --accent: #3A2BF0; --accent2: #2A1CC9; --on-accent: #FFFFFF; --link: #3123D9; --ok: #137A4B;
+    --hi: #8F86FF; --glow: rgba(58, 43, 240, .20); --card-line: transparent; --card-shadow: 0 1px 2px rgba(13, 15, 46, .05), 0 14px 34px -16px rgba(58, 43, 240, .20);
+    --font-body: "Funnel Sans", system-ui, -apple-system, "Segoe UI", sans-serif; --font-display: "Funnel Display", system-ui, sans-serif; --font-mono: "Geist Mono", ui-monospace, Menlo, Consolas, monospace; }
+  :root[data-theme="dark"] { color-scheme: dark; --bg: #090A1F; --bg2: #16183A; --card: #10122D; --ink: #EDEFFF; --muted: #A0A5CC; --line: #262A57; --accent: #7E73FF; --accent2: #9D95FF; --on-accent: #090A1F; --link: #A9A2FF; --ok: #5ED39A; --hi: #B9B3FF; --glow: transparent; --card-line: #262A57; --card-shadow: none; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --bg: #090A1F; --bg2: #16183A; --card: #10122D; --ink: #EDEFFF; --muted: #A0A5CC; --line: #262A57; --accent: #7E73FF; --accent2: #9D95FF; --on-accent: #090A1F; --link: #A9A2FF; --ok: #5ED39A; --hi: #B9B3FF; --glow: transparent; --card-line: #262A57; --card-shadow: none; } }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 var(--font-body); -webkit-font-smoothing: antialiased; }
+  a { color: var(--link); }
+  h1, h2, h3 { font-family: var(--font-display); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+  .nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(12px); }
+  .navrow { display: flex; align-items: center; gap: 30px; height: 80px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); flex: none; }
+  .brand img { width: 40px; height: 40px; display: block; }
+  .brand span { font-family: var(--font-display); font-weight: 800; font-size: 32px; letter-spacing: -.045em; line-height: 1; }
+  .links { display: flex; gap: 26px; flex: 1; }
+  .links a { color: var(--ink); text-decoration: none; font-weight: 500; font-size: 15.5px; }
+  .links a:hover { color: var(--link); }
+  .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--on-accent); text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 16px; padding: 12px 22px; border-radius: 999px; box-shadow: 0 10px 24px -10px var(--glow); white-space: nowrap; }
+  .cta:hover { background: var(--accent2); }
+  .cta.big { font-size: 19px; padding: 18px 32px; }
+  .ghost { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 19px; padding: 16px 28px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); white-space: nowrap; }
+  .ghost:hover { border-color: var(--accent); }
+
+  .hero { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: 36px; align-items: center; padding-top: 44px; padding-bottom: 76px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px 6px 6px; border-radius: 999px; background: var(--card); box-shadow: 0 0 0 1px var(--line); font-size: 14.5px; font-weight: 500; color: var(--muted); margin: 0 0 28px; }
+  .eyebrow i { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(to top, var(--accent) 0 70%, var(--bg2) 70%); box-shadow: inset 0 0 0 2px var(--accent); }
+  h1 { font-size: clamp(46px, 6.3vw, 88px); line-height: .97; letter-spacing: -.048em; font-weight: 800; margin: 0 0 26px; text-wrap: balance; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .lede { font-size: 20px; line-height: 1.5; color: var(--muted); max-width: 540px; margin: 0 0 34px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .soon { margin: 18px 0 0; font-size: 14.5px; color: var(--muted); }
+  .soon b { color: var(--ink); font-weight: 600; }
+  figure { margin: 0; }
+  figure svg { width: 100%; height: auto; display: block; }
+  figcaption { font-size: 13px; color: var(--muted); text-align: center; margin-top: 4px; }
+  .v-liq { fill: var(--accent); }
+  .v-hi { fill: none; stroke: var(--hi); stroke-width: 5; stroke-linecap: round; opacity: .9; }
+  .v-wall { fill: none; stroke: var(--ink); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+  .v-pour { fill: none; stroke: var(--accent); stroke-width: 16; stroke-linecap: round; }
+  .v-pipe { fill: none; stroke: var(--accent); stroke-width: 11; stroke-linecap: round; }
+  .v-drop { fill: var(--hi); }
+  .v-note { fill: var(--muted); font-family: var(--font-body); font-size: 15px; font-weight: 500; }
+  .v-big { fill: var(--on-accent); font-family: var(--font-display); font-weight: 800; font-size: 86px; letter-spacing: -.04em; text-anchor: middle; }
+  .v-sm { fill: var(--on-accent); font-family: var(--font-body); font-weight: 600; font-size: 13px; letter-spacing: .14em; text-anchor: middle; }
+  .v-sm2 { fill: var(--on-accent); font-family: var(--font-body); font-weight: 500; font-size: 15px; text-anchor: middle; opacity: .85; }
+  .v-chip { fill: var(--card); stroke: var(--line); stroke-width: 1.5; }
+  .v-chip.k { fill: var(--ink); stroke: var(--ink); }
+  .v-ct { fill: var(--ink); font-family: var(--font-display); font-weight: 700; font-size: 19px; letter-spacing: -.01em; }
+  .v-cs { fill: var(--muted); font-family: var(--font-body); font-size: 13.5px; }
+  .v-ct.k { fill: var(--bg); }
+  .v-cs.k { fill: var(--bg2); }
+
+  .band { background: var(--bg2); padding: 64px 0; }
+  .kicker { font-weight: 600; font-size: 14px; color: var(--link); margin: 0 0 10px; }
+  h2.sec { font-size: clamp(34px, 4.2vw, 56px); letter-spacing: -.04em; line-height: 1; margin: 0 0 14px; font-weight: 800; }
+  .sub { font-size: 18px; color: var(--muted); margin: 0; max-width: 640px; }
+  .cycle { list-style: none; margin: 34px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 12px; }
+  .cycle li { background: var(--card); border-radius: 22px; padding: 20px 18px; }
+  .cycle .top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .cycle .n { font-family: var(--font-display); font-weight: 800; font-size: 15px; color: var(--muted); }
+  .lvl { display: inline-flex; align-items: flex-end; width: 20px; height: 28px; border-radius: 4px 4px 8px 8px; box-shadow: inset 0 0 0 2px var(--ink); padding: 3px; overflow: hidden; }
+  .lvl i { display: block; width: 100%; background: var(--accent); border-radius: 1px 1px 5px 5px; }
+  .cycle b { display: block; font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: -.015em; }
+  .cycle small { display: block; color: var(--muted); font-size: 14.5px; margin-top: 4px; line-height: 1.45; }
+  .secpad { padding-top: 96px; }
+
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); gap: 18px; margin-top: 34px; }
+  .pillar { background: var(--card); border: 1px solid var(--card-line); border-radius: 28px; padding: 30px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; gap: 12px; }
+  .pillar .pn { font-family: var(--font-display); font-weight: 800; font-size: 15px; color: var(--link); }
+  .pillar h3 { font-size: 30px; letter-spacing: -.03em; margin: 0; font-weight: 800; }
+  .pillar p { margin: 0; font-size: 16.5px; line-height: 1.55; color: var(--muted); }
+  .demo { margin-top: auto; padding-top: 14px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { border-radius: 999px; padding: 7px 14px; font-weight: 600; font-size: 14px; background: var(--bg2); color: var(--ink); }
+  .tag.on { background: var(--accent); color: var(--on-accent); }
+  .meter { height: 14px; border-radius: 999px; background: var(--bg2); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; }
+  .meter i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(180deg, var(--hi) 0 3px, var(--accent) 3px); }
+  .meterl { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .meterl b { color: var(--ink); font-family: var(--font-display); font-size: 16px; }
+  .split { display: flex; gap: 4px; height: 46px; }
+  .split span { display: flex; align-items: center; justify-content: center; border-radius: 12px; font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; padding: 0 8px; }
+  .split .s1 { background: var(--accent); color: var(--on-accent); }
+  .split .s2 { background: var(--hi); color: #0D0F2E; }
+  .split .s3 { background: var(--ink); color: var(--bg); }
+  .rcpt { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; background: var(--bg2); border-radius: 16px; padding: 12px 16px; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+  .rcpt b { color: var(--ink); font-weight: 600; }
+  .rcpt .ok { color: var(--ok); font-weight: 600; }
+
+  .feecards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); gap: 18px; margin-top: 34px; }
+  .feecard { border-radius: 28px; padding: 30px; background: var(--bg2); display: flex; flex-direction: column; gap: 14px; }
+  .feecard .when { font-weight: 600; font-size: 14px; color: var(--muted); margin: 0; }
+  .feecard h3 { font-size: 44px; letter-spacing: -.04em; line-height: 1; margin: 0; font-weight: 800; }
+  .feecard h3 small { font-family: var(--font-body); font-size: 17px; font-weight: 500; letter-spacing: 0; color: var(--muted); margin-left: 6px; }
+  .feecard p { margin: 0; font-size: 15.5px; color: var(--muted); line-height: 1.55; }
+  .feecard .split span { background: var(--card); color: var(--ink); }
+  .feecard .split .s1 { background: var(--accent); color: var(--on-accent); }
+  .feecard .split .s3 { background: var(--ink); color: var(--bg); }
+  .taxnote { font-size: 16px; color: var(--muted); margin: 22px 0 0; max-width: 860px; }
+  .taxnote b { color: var(--ink); }
+
+  .qa { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 18px; margin-top: 34px; }
+  .qa article { border-radius: 24px; padding: 26px; background: var(--card); border: 1px solid var(--card-line); box-shadow: var(--card-shadow); }
+  .qa h3 { font-size: 20px; margin: 0 0 10px; font-weight: 700; letter-spacing: -.01em; }
+  .qa p { margin: 0; font-size: 15.5px; color: var(--muted); line-height: 1.55; }
+
+  .closer { margin-top: 110px; background: var(--accent); color: var(--on-accent); border-radius: 36px; padding: 64px 56px; display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
+  .closer h2 { font-size: clamp(34px, 4.4vw, 60px); letter-spacing: -.045em; line-height: 1; margin: 0 0 12px; font-weight: 800; }
+  .closer p { margin: 0; font-size: 18px; opacity: .9; }
+  .closer .cta { background: var(--card); color: var(--ink); box-shadow: none; }
+
+  .foot { padding: 56px 0 64px; }
+  .footrow { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; border-top: 1.5px solid var(--line); padding-top: 28px; }
+  .footrow nav { display: flex; gap: 22px; margin-left: auto; }
+  .footrow nav a { color: var(--ink); text-decoration: none; font-weight: 500; }
+  .fine { font-size: 13px; color: var(--muted); max-width: 820px; margin: 18px 0 0; line-height: 1.55; }
+
+  @media (max-width: 900px) { .hero { grid-template-columns: minmax(0, 1fr); padding-top: 28px; gap: 20px; } .links { display: none; } .navrow { justify-content: space-between; height: 68px; } }
+  @media (max-width: 520px) { .wrap { padding: 0 18px; } .navrow { height: 64px; } .brand span { font-size: 27px; } .brand img { width: 34px; height: 34px; } .cta { font-size: 14px; padding: 10px 16px; } .cta.big { font-size: 17px; padding: 15px 24px; } .ghost { font-size: 17px; padding: 14px 22px; } .lede { font-size: 17px; margin-bottom: 24px; } .eyebrow { font-size: 12.5px; margin-bottom: 20px; } .secpad { padding-top: 72px; } .pillar, .feecard { padding: 24px; } .pillar h3 { font-size: 26px; } .feecard h3 { font-size: 36px; } .closer { padding: 40px 26px; border-radius: 28px; margin-top: 80px; } .footrow nav { margin-left: 0; } }
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap navrow">
+    <a class="brand" href="/"><img src="favicon.svg" alt=""><span>brim</span></a>
+    <nav class="links" aria-label="Site"><a href="#cycle">How it runs</a><a href="#fees">Fees</a><a href="#questions">Questions</a></nav>
+    <a class="cta" href="/docs/">Read the docs</a>
+  </div>
+</header>
+
+<main>
+<section class="wrap hero">
+  <div>
+    <p class="eyebrow"><i></i>Hourly payouts · locked liquidity</p>
+    <h1>Launch a token that pays its holders <em>every hour.</em></h1>
+    <p class="lede">Set one tax and split it between holders, yourself and the burn. Brim pays it out every hour with nothing to claim, and locks the pool's liquidity for good when your token graduates.</p>
+    <div class="ctas"><a class="cta big" href="#cycle">See how it runs</a><a class="ghost" href="/docs/">Read the docs</a></div>
+    <p class="soon"><b>Launches open soon.</b> Built on Raydium LaunchLab, Solana.</p>
+  </div>
+  <figure>
+    <svg viewBox="0 0 720 560" role="img" aria-label="Example: a 2% tax fills the vessel and pours out to holders, the creator and the burn every hour">
+      <circle class="v-drop" cx="196" cy="40" r="9"/><circle class="v-drop" cx="242" cy="76" r="13"/><circle class="v-drop" cx="290" cy="30" r="7"/>
+      <text class="v-note" x="322" y="47">held back from every transfer</text>
+      <path class="v-liq" d="M106 150C160 128 200 162 258 142C312 124 352 140 396 124V418Q396 484 330 484H170Q106 484 106 418Z"/>
+      <path class="v-hi" d="M110 158C162 138 202 170 258 151C310 134 350 149 390 134"/>
+      <path class="v-wall" d="M90 116V418Q90 500 172 500H328Q410 500 410 418V116"/>
+      <path class="v-pour" d="M382 128Q412 92 446 132"/>
+      <path class="v-pipe" d="M446 132C474 160 472 186 504 186"/>
+      <path class="v-pipe" d="M446 132C470 196 470 296 504 296"/>
+      <path class="v-pipe" d="M446 132C464 236 470 406 504 406"/>
+      <text class="v-big" x="250" y="320">2.00%</text>
+      <text class="v-sm" x="250" y="354">TAX ON EVERY TRANSFER</text>
+      <text class="v-sm2" x="250" y="452">poured out every hour</text>
+      <rect class="v-chip" x="500" y="152" width="212" height="68" rx="34"/>
+      <text class="v-ct" x="528" y="182">60% · holders</text><text class="v-cs" x="528" y="203">in SOL, by balance</text>
+      <rect class="v-chip" x="500" y="262" width="212" height="68" rx="34"/>
+      <text class="v-ct" x="528" y="292">30% · creator</text><text class="v-cs" x="528" y="313">in SOL, to their wallet</text>
+      <rect class="v-chip k" x="500" y="372" width="212" height="68" rx="34"/>
+      <text class="v-ct k" x="528" y="402">10% · burn</text><text class="v-cs k" x="528" y="423">tokens destroyed</text>
+    </svg>
+    <figcaption>Example: a 2% tax on a SOL pair, split 60 / 30 / 10.</figcaption>
+  </figure>
+</section>
+
+<section class="band" id="cycle">
+  <div class="wrap">
+    <p class="kicker">Every hour</p>
+    <h2 class="sec">Filled by every trade. Poured every hour.</h2>
+    <p class="sub">Each token runs the same cycle on its own. There is nothing to switch on and nothing to claim.</p>
+    <ol class="cycle">
+      <li><div class="top"><span class="n">01</span><span class="lvl"><i style="height:20%"></i></span></div><b>Collect</b><small>A share of every transfer is held back, on the curve or in the pool.</small></li>
+      <li><div class="top"><span class="n">02</span><span class="lvl"><i style="height:40%"></i></span></div><b>Swap</b><small>Once an hour it is sold for the pair coin: SOL on a SOL pair.</small></li>
+      <li><div class="top"><span class="n">03</span><span class="lvl"><i style="height:60%"></i></span></div><b>Count</b><small>Every wallet holding $5 or more of the token is counted.</small></li>
+      <li><div class="top"><span class="n">04</span><span class="lvl"><i style="height:80%"></i></span></div><b>Send</b><small>Holders by balance, the creator's share, and the burn.</small></li>
+      <li><div class="top"><span class="n">05</span><span class="lvl"><i style="height:100%"></i></span></div><b>Record</b><small>Each transfer is listed on the token's page with its signature.</small></li>
+    </ol>
+  </div>
+</section>
+
+<section class="wrap secpad" id="why">
+  <p class="kicker">Why Brim</p>
+  <h2 class="sec">Less to set. More to trust.</h2>
+  <p class="sub">No panel of settings to get wrong: one tax, one split, and four things you can count on.</p>
+  <div class="pillars">
+    <article class="pillar"><span class="pn">01</span><h3>One-minute launch</h3>
+      <p>Name, ticker, image, tax, split. That is the whole form. The tax goes up to 5%, the split is in whole percents, and you choose both at launch.</p>
+      <div class="demo split"><span class="s1" style="flex:60">holders 60%</span><span class="s2" style="flex:30">you 30%</span><span class="s3" style="flex:10">burn</span></div></article>
+    <article class="pillar"><span class="pn">02</span><h3>Proven rails</h3>
+      <p>Brim runs on Raydium LaunchLab, the launch contracts more than a dozen Solana launchpads are built on. A graduating token moves into a Raydium pool, and the hourly swaps route through Jupiter.</p>
+      <div class="demo tags"><span class="tag">Solana</span><span class="tag on">Raydium LaunchLab</span><span class="tag">Raydium pools</span><span class="tag">Jupiter</span></div></article>
+    <article class="pillar"><span class="pn">03</span><h3>Locked for good</h3>
+      <p>When a token graduates, all of its pool's liquidity is locked permanently. Nobody can pull it: not the creator, not Brim.</p>
+      <div class="demo"><div class="meter"><i style="width:100%"></i></div><div class="meterl"><span>pool liquidity</span><b>100% locked</b><span>forever</span></div></div></article>
+    <article class="pillar"><span class="pn">04</span><h3>Proof on every payout</h3>
+      <p>Each hourly payout is an ordinary Solana transaction. The token's page lists every one with its signature, so anyone can check where the tax went.</p>
+      <div class="demo rcpt"><span>14:23 UTC</span><b>212 holders</b><b>1.84 SOL</b><span>4xQe…9fTa</span><span class="ok">confirmed</span></div></article>
+  </div>
+</section>
+
+<section class="wrap secpad" id="fees">
+  <p class="kicker">Fees</p>
+  <h2 class="sec">What a trade costs</h2>
+  <div class="feecards">
+    <article class="feecard"><p class="when">On the curve</p><h3>1.00%<small>per trade</small></h3>
+      <div class="split"><span style="flex:25">Raydium 0.25</span><span class="s3" style="flex:25">Brim 0.25</span><span class="s1" style="flex:50">creator 0.50</span></div>
+      <p>The creator's 0.50% collects in an on-chain vault that nobody but the creator can draw from.</p></article>
+    <article class="feecard"><p class="when">After graduation</p><h3>0.80%<small>per swap</small></h3>
+      <div class="split"><span style="flex:25">pool fee 0.25</span><span class="s3" style="flex:55">Brim 0.55</span></div>
+      <p>A standard Raydium pool. Brim holds the fee key of the locked liquidity, so the pool fee comes to Brim as well, less Raydium's cut.</p></article>
+  </div>
+  <p class="taxnote"><b>The tax is separate.</b> The creator sets it at launch, from 0 to 5%, and every bit of it goes where they split it. Brim takes no share of the tax.</p>
+</section>
+
+<section class="wrap secpad" id="questions">
+  <p class="kicker">Questions</p>
+  <h2 class="sec">Short answers</h2>
+  <div class="qa">
+    <article><h3>When do holders get paid?</h3><p>Every hour. If an hour's tax is too small to be worth a swap, it waits and is added to the next hour's.</p></article>
+    <article><h3>What are payouts made in?</h3><p>The coin the token trades against: SOL on a SOL pair, and the pair's own coin on any other.</p></article>
+    <article><h3>Is there anything to claim?</h3><p>No. The holders' share, the creator's share and the burn are all sent automatically.</p></article>
+    <article><h3>Who isn't paid?</h3><p>Wallets holding less than $5 of the token when the hour is counted, and the curve and pool accounts themselves.</p></article>
+    <article><h3>What happens at graduation?</h3><p>When the curve fills, the token moves into a Raydium pool with its liquidity locked for good, and the hourly payouts carry on wherever it trades.</p></article>
+    <article><h3>Does Brim vet tokens?</h3><p>No. Anyone can launch, and a token can lose all of its value. Brim runs the launch and the payouts; it doesn't review or endorse what gets launched.</p></article>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="closer"><div><h2>Fill it to the brim.</h2><p>Launches open soon.</p></div><a class="cta big" href="/docs/">Read the docs</a></div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="footrow">
+      <a class="brand" href="/"><img src="favicon.svg" alt=""><span>brim</span></a>
+      <nav aria-label="Footer"><a href="#cycle">How it runs</a><a href="#fees">Fees</a><a href="/docs/">Docs</a></nav>
+    </div>
+    <p class="fine">brimfamily.fun · Brim is a token launchpad on Solana, built on Raydium LaunchLab. Hourly payouts are sent by Brim's payout service and recorded on-chain. Tokens are created by the people who launch them, and nothing on this site is investment advice.</p>
+  </div>
+</footer>
+</body>
+</html>

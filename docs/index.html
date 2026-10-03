@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var m=localStorage.getItem("brim-mode");if(m==="dark"||m==="light")document.documentElement.dataset.theme=m}catch(e){}</script>
+<title>The Brim guide</title>
+<meta name="description" content="The Brim guide: creating a token, the hourly payout, holders, the creator, graduation, costs and how to check a payout.">
+<meta property="og:title" content="The Brim guide">
+<meta property="og:description" content="How a Brim token pays its holders every hour, what it costs, and how to check every payout.">
+<meta property="og:image" content="https://brimfamily.fun/logo.png">
+<meta property="og:url" content="https://brimfamily.fun/docs/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#F4F5FC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#090A1F" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<style>
+  @font-face { font-family: "Funnel Display"; src: url("../fonts/funnel-display-latin-wght-normal.woff2") format("woff2"); font-weight: 300 800; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Funnel Sans"; src: url("../fonts/funnel-sans-latin-wght-normal.woff2") format("woff2"); font-weight: 300 800; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Geist Mono"; src: url("../fonts/geist-mono-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+
+  :root { color-scheme: light; --bg: #F4F5FC; --bg2: #E8EAFB; --card: #FFFFFF; --ink: #0D0F2E; --muted: #545A7C; --line: #D9DCF2; --accent: #3A2BF0; --accent2: #2A1CC9; --on-accent: #FFFFFF; --link: #3123D9; --ok: #137A4B;
+    --hi: #8F86FF; --glow: rgba(58, 43, 240, .20); --card-line: transparent; --card-shadow: 0 1px 2px rgba(13, 15, 46, .05), 0 14px 34px -16px rgba(58, 43, 240, .20);
+    --font-body: "Funnel Sans", system-ui, -apple-system, "Segoe UI", sans-serif; --font-display: "Funnel Display", system-ui, sans-serif; --font-mono: "Geist Mono", ui-monospace, Menlo, Consolas, monospace; }
+  :root[data-theme="dark"] { color-scheme: dark; --bg: #090A1F; --bg2: #16183A; --card: #10122D; --ink: #EDEFFF; --muted: #A0A5CC; --line: #262A57; --accent: #7E73FF; --accent2: #9D95FF; --on-accent: #090A1F; --link: #A9A2FF; --ok: #5ED39A; --hi: #B9B3FF; --glow: transparent; --card-line: #262A57; --card-shadow: none; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --bg: #090A1F; --bg2: #16183A; --card: #10122D; --ink: #EDEFFF; --muted: #A0A5CC; --line: #262A57; --accent: #7E73FF; --accent2: #9D95FF; --on-accent: #090A1F; --link: #A9A2FF; --ok: #5ED39A; --hi: #B9B3FF; --glow: transparent; --card-line: #262A57; --card-shadow: none; } }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16.5px/1.65 var(--font-body); -webkit-font-smoothing: antialiased; }
+  a { color: var(--link); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+  .nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(12px); }
+  .navrow { display: flex; align-items: center; gap: 30px; height: 76px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); flex: none; }
+  .brand img { width: 36px; height: 36px; display: block; }
+  .brand span { font-family: var(--font-display); font-weight: 800; font-size: 29px; letter-spacing: -.045em; line-height: 1; }
+  .links { display: flex; gap: 26px; flex: 1; }
+  .links a { color: var(--ink); text-decoration: none; font-weight: 500; font-size: 15.5px; }
+  .links a[aria-current] { color: var(--link); }
+  .cta { display: inline-flex; align-items: center; background: var(--accent); color: var(--on-accent); text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 16px; padding: 12px 22px; border-radius: 999px; box-shadow: 0 10px 24px -10px var(--glow); white-space: nowrap; }
+  .cta:hover { background: var(--accent2); }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 28px 40px; }
+  h1, h2 { font-family: var(--font-display); font-weight: 800; }
+  h1 { font-size: clamp(40px, 5.4vw, 64px); line-height: 1; letter-spacing: -.045em; margin: 40px 0 18px; }
+  h1 + p { font-size: 19px; line-height: 1.55; color: var(--muted); }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 8px; }
+  .toc a { text-decoration: none; color: var(--ink); background: var(--bg2); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 600; }
+  .toc a:hover { background: var(--accent); color: var(--on-accent); }
+  h2 { font-size: 30px; letter-spacing: -.035em; line-height: 1.1; margin: 64px 0 14px; scroll-margin-top: 96px; }
+  h2::before { content: ""; display: block; width: 44px; height: 8px; border-radius: 999px; margin-bottom: 18px; background: linear-gradient(90deg, var(--accent) 0 72%, var(--bg2) 72%); }
+  p { margin: 0 0 14px; }
+  b { font-weight: 700; }
+  ol { margin: 0 0 14px; padding: 0; list-style: none; counter-reset: s; }
+  ol li { position: relative; padding: 0 0 12px 44px; counter-increment: s; }
+  ol li::before { content: counter(s); position: absolute; left: 0; top: 1px; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, var(--accent) 0 72%, var(--bg2) 72%); box-shadow: inset 0 0 0 2px var(--accent); color: var(--on-accent); font-family: var(--font-display); font-weight: 800; font-size: 14px; }
+  ul { margin: 0 0 14px; padding-left: 22px; }
+  ul li { margin-bottom: 6px; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 15px; line-height: 1.55; margin: 6px 0 16px; background: var(--card); border: 1px solid var(--card-line); border-radius: 20px; box-shadow: var(--card-shadow); overflow: hidden; }
+  th, td { text-align: left; vertical-align: top; padding: 12px 16px; border-top: 1px solid var(--line); }
+  tr:first-child th, tr:first-child td { border-top: 0; }
+  th { font-family: var(--font-display); font-weight: 700; font-size: 14px; color: var(--muted); background: var(--bg2); }
+  td:first-child { font-weight: 600; width: 30%; }
+  .note { background: var(--bg2); border-radius: 16px; padding: 14px 18px; font-size: 15.5px; color: var(--muted); margin: 0 0 14px; }
+  .note b { color: var(--ink); }
+  .foot { padding: 40px 0 64px; }
+  .footrow { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; border-top: 1.5px solid var(--line); padding-top: 28px; }
+  .footrow nav { display: flex; gap: 22px; margin-left: auto; }
+  .footrow nav a { color: var(--ink); text-decoration: none; font-weight: 500; }
+  .fine { font-size: 13px; color: var(--muted); margin: 18px 0 0; }
+  @media (max-width: 900px) { .links { display: none; } .navrow { justify-content: space-between; height: 66px; } }
+  @media (max-width: 520px) { .wrap, main { padding-left: 18px; padding-right: 18px; } .brand span { font-size: 25px; } .brand img { width: 30px; height: 30px; } .cta { font-size: 14px; padding: 10px 16px; } td:first-child { width: auto; } th, td { padding: 10px 12px; } .footrow nav { margin-left: 0; } }
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap navrow">
+    <a class="brand" href="/"><img src="../favicon.svg" alt=""><span>brim</span></a>
+    <nav class="links" aria-label="Site"><a href="/#cycle">How it runs</a><a href="/#fees">Fees</a><a href="/docs/" aria-current="page">Guide</a></nav>
+    <a class="cta" href="/">Home</a>
+  </div>
+</header>
+<main>
+<h1>The Brim guide</h1>
+<p>A Brim token carries a small tax on every transfer. Once an hour, Brim collects it and sends it where the creator decided at launch:
+to the token's holders, to the creator, or into a burn. This guide covers what happens at each step, what it costs, and how to check it.</p>
+<nav class="toc" aria-label="On this page"><a href="#create">Creating a token</a><a href="#hourly">The hourly payout</a><a href="#holders">Holders</a><a href="#creator">The creator</a><a href="#graduation">Graduation</a><a href="#costs">Costs</a><a href="#checking">Checking a payout</a><a href="#limits">Limits</a></nav>
+
+<h2 id="create">Creating a token</h2>
+<p>The launch form asks for six things, and the launch is a single transaction you sign in your own wallet.</p>
+<table>
+  <tr><th>You set</th><th>What it means</th></tr>
+  <tr><td>Name, ticker, image</td><td>How the token shows up in wallets and on explorers. A description and links are optional.</td></tr>
+  <tr><td>The pair</td><td>The coin the token trades against on its curve. SOL suits most tokens; other coins Raydium supports can be picked too. Payouts are made in this coin.</td></tr>
+  <tr><td>The tax</td><td>From 0 to 5% of every transfer, chosen at launch.</td></tr>
+  <tr><td>The split</td><td>Whole percents for holders, for you and for the burn, adding up to 100. Any of the three can be 0.</td></tr>
+</table>
+<p>You can buy some of your own token in the same transaction. Once the launch confirms, Brim picks the token up for hourly payouts on
+its own; there is nothing else to submit.</p>
+
+<h2 id="hourly">The hourly payout</h2>
+<ol>
+  <li><b>Collect.</b> The token program holds back the tax on every transfer, whether it happens on the curve, in the pool or between
+    wallets. Brim gathers what has built up.</li>
+  <li><b>Swap.</b> The holders' and the creator's parts are sold for the pair coin through Jupiter. The burn part needs no swap. If the
+    hour's amount is too small to be worth a swap, it stays put and is added to the next hour's.</li>
+  <li><b>Count.</b> Brim takes a snapshot of every wallet's balance and prices it. Wallets holding at least $5 of the token qualify.</li>
+  <li><b>Send.</b> The holders' part is shared out by balance, the creator's part goes to the creator's wallet, and the burn part is
+    destroyed.</li>
+  <li><b>Record.</b> The hour goes onto the token's page: what was collected, who was paid, how much was burned, and the signature of
+    every transaction.</li>
+</ol>
+
+<h2 id="holders">Holders</h2>
+<p>Holding is enough. A wallet worth $5 or more of the token at the hourly count is paid its share of the holders' part, in proportion
+to its balance, straight into the wallet. There is nothing to claim and nothing to stake.</p>
+<ul>
+  <li>Splitting tokens across several wallets never earns more than holding them in one; the share follows the balance.</li>
+  <li>A share too small to deliver that hour, such as a few lamports to a wallet that does not exist on-chain yet, is added to the other
+    holders' shares.</li>
+  <li>The curve, the pool and Brim's own wallets are left out of the count.</li>
+</ul>
+
+<h2 id="creator">The creator</h2>
+<p>A creator earns in two ways, and neither needs Brim's permission:</p>
+<ul>
+  <li><b>The curve fee.</b> 0.50% of every trade on the curve builds up in the creator's own on-chain vault. Only the creator can claim
+    it, at any time, from the app.</li>
+  <li><b>Their part of the tax.</b> Whatever share the creator kept for themselves arrives every hour in the pair coin, for as long as
+    the token trades, before and after graduation.</li>
+</ul>
+
+<h2 id="graduation">Graduation</h2>
+<p>When enough has been bought to fill the curve, Raydium moves the token into a Raydium pool automatically. At that moment:</p>
+<ul>
+  <li>All of the pool's liquidity is locked permanently. It can never be withdrawn, by the creator or by Brim. Brim holds the fee key
+    that comes with the lock, which collects the pool fee but cannot touch the liquidity.</li>
+  <li>The pool charges 0.80% per swap (see <a href="#costs">Costs</a>).</li>
+  <li>The hourly payouts continue unchanged, because the tax is part of the token and applies wherever it trades.</li>
+</ul>
+
+<h2 id="costs">Costs</h2>
+<table>
+  <tr><th>When</th><th>Cost</th></tr>
+  <tr><td>Each trade on the curve</td><td>1.00%: 0.25% to Raydium, 0.25% to Brim, 0.50% to the creator.</td></tr>
+  <tr><td>Each swap in the pool</td><td>0.80%: a 0.25% pool fee, collected by the locked liquidity whose fee key Brim holds (Raydium keeps 16% of it), and 0.55% to Brim.</td></tr>
+  <tr><td>The token's tax</td><td>0 to 5%, set by the creator. All of it goes where the creator split it; Brim takes no share.</td></tr>
+  <tr><td>Launching</td><td>About 0.01 SOL in network fees and rent, plus whatever you buy at launch.</td></tr>
+</table>
+
+<h2 id="checking">Checking a payout</h2>
+<p>Every payout is an ordinary Solana transaction. The token's page lists each hour with its amounts and signatures, and any signature
+opens in a Solana explorer, so anyone can follow the tax from the token to the wallets that received it.</p>
+<p class="note"><b>Paid in a coin with its own transfer fee?</b> Some pair coins charge a fee on every transfer themselves. A payout in
+such a coin arrives smaller by that fee, and the token's page shows the amount sent.</p>
+
+<h2 id="limits">Limits</h2>
+<ul>
+  <li>The hourly cycle is run by Brim's payout service. If it pauses, the tax keeps building up in the token and goes out when the
+    service resumes.</li>
+  <li>Because the tax arrives as the token, its value in the pair coin depends on the price when it is swapped.</li>
+  <li>Payouts rely on Solana, Raydium and Jupiter being available.</li>
+  <li>Anyone can launch a token. Brim does not review, rank or endorse tokens, and a token can lose all of its value.</li>
+  <li>Nothing on this site is investment advice.</li>
+</ul>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="footrow">
+      <a class="brand" href="/"><img src="../favicon.svg" alt=""><span>brim</span></a>
+      <nav aria-label="Footer"><a href="/#cycle">How it runs</a><a href="/#fees">Fees</a><a href="/">Home</a></nav>
+    </div>
+    <p class="fine">brimfamily.fun · Brim is a token launchpad on Solana, built on Raydium LaunchLab.</p>
+  </div>
+</footer>
+</body>
+</html>
