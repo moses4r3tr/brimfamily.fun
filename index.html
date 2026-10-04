@@ -89,6 +89,7 @@
   .cycle b { display: block; font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: -.015em; }
   .cycle small { display: block; color: var(--muted); font-size: 14.5px; margin-top: 4px; line-height: 1.45; }
   .secpad { padding-top: 96px; }
+  .secgap { margin-top: 96px; }
 
   .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); gap: 18px; margin-top: 34px; }
   .pillar { background: var(--card); border: 1px solid var(--card-line); border-radius: 28px; padding: 30px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; gap: 12px; }
@@ -123,6 +124,24 @@
   .feecard .split .s3 { background: var(--ink); color: var(--bg); }
   .taxnote { font-size: 16px; color: var(--muted); margin: 22px 0 0; max-width: 860px; }
   .taxnote b { color: var(--ink); }
+
+  .wheel { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 40px; align-items: center; margin-top: 34px; }
+  .wheel figure svg { max-width: 420px; margin: 0 auto; }
+  .w-track { fill: none; stroke: var(--card); stroke-width: 16; }
+  .w-arc { fill: none; stroke: var(--accent); stroke-width: 16; stroke-linecap: round; }
+  .w-head { fill: var(--accent); }
+  .w-node { fill: var(--accent); stroke: var(--bg2); stroke-width: 6; }
+  .w-num { fill: var(--on-accent); font-family: var(--font-display); font-weight: 800; font-size: 22px; text-anchor: middle; dominant-baseline: central; }
+  .w-glass { fill: var(--card); }
+  .w-liq { fill: var(--accent); }
+  .w-hi { fill: none; stroke: var(--hi); stroke-width: 4; stroke-linecap: round; }
+  .w-label { fill: var(--on-accent); font-family: var(--font-display); font-weight: 800; font-size: 19px; text-anchor: middle; letter-spacing: -.01em; }
+  .wsteps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: w; }
+  .wsteps li { position: relative; background: var(--card); border-radius: 22px; padding: 18px 20px 18px 66px; counter-increment: w; }
+  .wsteps li::before { content: counter(w); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--accent); color: var(--on-accent); font-family: var(--font-display); font-weight: 800; font-size: 15px; }
+  .wsteps b { display: block; font-family: var(--font-display); font-size: 19px; font-weight: 700; letter-spacing: -.015em; }
+  .wsteps small { display: block; color: var(--muted); font-size: 14.5px; margin-top: 2px; line-height: 1.45; }
+  @media (max-width: 900px) { .wheel { grid-template-columns: minmax(0, 1fr); gap: 24px; } .wheel figure svg { max-width: 300px; } }
 
   .qa { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 18px; margin-top: 34px; }
   .qa article { border-radius: 24px; padding: 26px; background: var(--card); border: 1px solid var(--card-line); box-shadow: var(--card-shadow); }
@@ -234,6 +253,40 @@
       <p>A standard Raydium pool. Brim holds the fee key of the locked liquidity, so the pool fee comes to Brim as well, less Raydium's cut.</p></article>
   </div>
   <p class="taxnote"><b>The tax is separate.</b> The creator sets it at launch, from 0 to 5%, and every bit of it goes where they split it. Brim takes no share of the tax.</p>
+</section>
+
+<section class="band secgap" id="flywheel">
+  <div class="wrap">
+    <p class="kicker">The flywheel</p>
+    <h2 class="sec">Every trade turns the wheel.</h2>
+    <p class="sub">Brim's share of each trade goes into its treasury, and the treasury goes back into Brim.</p>
+    <div class="wheel">
+      <figure>
+        <svg viewBox="0 0 400 400" role="img" aria-label="A loop: trades fill the treasury, the treasury funds growth, growth brings more launches, and more launches bring more trades">
+          <defs><clipPath id="w-clip"><circle cx="200" cy="200" r="70"/></clipPath></defs>
+          <circle class="w-track" cx="200" cy="200" r="140"/>
+          <path class="w-arc" d="M270 78.76A140 140 0 1 1 130 78.76"/>
+          <path class="w-head" d="M146 69.5L128.2 92.4L117.6 72.2Z"/>
+          <circle class="w-glass" cx="200" cy="200" r="78"/>
+          <g clip-path="url(#w-clip)">
+            <path class="w-liq" d="M120 186C150 174 170 198 200 186C230 174 250 198 280 186V290H120Z"/>
+            <path class="w-hi" d="M120 189C150 177 170 201 200 189C230 177 250 201 280 189"/>
+          </g>
+          <text class="w-label" x="200" y="238">treasury</text>
+          <circle class="w-node" cx="200" cy="60" r="26"/><text class="w-num" x="200" y="60">1</text>
+          <circle class="w-node" cx="340" cy="200" r="26"/><text class="w-num" x="340" y="200">2</text>
+          <circle class="w-node" cx="200" cy="340" r="26"/><text class="w-num" x="200" y="340">3</text>
+          <circle class="w-node" cx="60" cy="200" r="26"/><text class="w-num" x="60" y="200">4</text>
+        </svg>
+      </figure>
+      <ol class="wsteps">
+        <li><b>Trades</b><small>Every trade on a Brim token pays a small share to Brim.</small></li>
+        <li><b>Treasury</b><small>That share collects in Brim's treasury, on-chain for anyone to see.</small></li>
+        <li><b>Growth</b><small>The treasury pays for what makes launches work: the hourly payouts, better tools and getting new tokens seen.</small></li>
+        <li><b>More launches</b><small>More launches bring more trades, and the wheel turns again.</small></li>
+      </ol>
+    </div>
+  </div>
 </section>
 
 <section class="wrap secpad" id="questions">
